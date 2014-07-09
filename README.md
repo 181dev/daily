@@ -3,4 +3,4 @@ daily
 
 daily task tool
 
-![screenshot.png](screenshot)
+![screenshot](screenshot.png)
