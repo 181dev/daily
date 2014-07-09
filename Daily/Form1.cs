@@ -37,6 +37,10 @@ namespace Daily
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idx = checkedListBoxTasks.SelectedIndex;
+            if (idx < 0)
+            {
+                return;
+            }
             string item  = (string)checkedListBoxTasks.Items[idx];
 
             string output = DateTime.Now + "," + item + "," + checkedListBoxTasks.GetItemChecked(idx);
@@ -97,6 +101,29 @@ namespace Daily
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            foreach (object item in checkedListBoxTasks.Items)
+            {
+                var label = (string)item;
+                var timeStr = label.Split(' ')[0];
+                List<string> ballon = new List<string>();
+                if (timeStr == DateTime.Now.ToShortTimeString())
+                {
+                    ballon.Add(label);
+                }
+
+                if (ballon.Count > 0)
+                {
+                    notifyIcon1.BalloonTipTitle = "お知らせ";
+                    notifyIcon1.BalloonTipText = string.Join(Environment.NewLine, ballon);
+                    notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+                    notifyIcon1.ShowBalloonTip(10000);
+                }
+                
+            }
         }
     }
 }
