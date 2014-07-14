@@ -18,6 +18,14 @@ namespace Daily
             InitializeComponent();
             ShowInTaskbar = false;
             WindowState = FormWindowState.Minimized;
+            ReadTasks();
+        }
+
+        /// <summary>
+        /// タスク一覧をテキストファイルから読み込む
+        /// </summary>
+        private void ReadTasks()
+        {
             using (StreamReader sr = new StreamReader(Properties.Settings.Default.Tasks))
             {
                 string lines = sr.ReadToEnd();
@@ -41,7 +49,17 @@ namespace Daily
             {
                 return;
             }
-            string item  = (string)checkedListBoxTasks.Items[idx];
+            CheckItem(idx);
+            
+        }
+
+        /// <summary>
+        /// アイテムをチェックし、ログに出力する
+        /// </summary>
+        /// <param name="idx"></param>
+        private void CheckItem(int idx)
+        {
+            string item = (string)checkedListBoxTasks.Items[idx];
 
             string output = DateTime.Now + "," + item + "," + checkedListBoxTasks.GetItemChecked(idx);
             string path = Properties.Settings.Default.LogFile;
@@ -56,7 +74,6 @@ namespace Daily
                 sw.WriteLine(output);
                 Console.WriteLine(output);
             }
-            
         }
 
         private void 終了ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -67,8 +84,6 @@ namespace Daily
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             WindowState = FormWindowState.Normal;
-
-            this.Location = Properties.Settings.Default.AppPosition;
         }
 
 
@@ -80,11 +95,10 @@ namespace Daily
             MessageBoxIcon.Exclamation,
             MessageBoxDefaultButton.Button2);
 
-           //何が選択されたか調べる
            if (result == DialogResult.Yes)
            {
-               notifyIcon1.Visible = false;
                Properties.Settings.Default.Save();
+               notifyIcon1.Visible = false;
            }
            else if (result == DialogResult.No)
            {
@@ -105,6 +119,14 @@ namespace Daily
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            CheckTaskNotification();
+        }
+
+        /// <summary>
+        /// タスクの実行時刻が来たら通知する
+        /// </summary>
+        private void CheckTaskNotification()
+        {
             foreach (object item in checkedListBoxTasks.Items)
             {
                 var label = (string)item;
@@ -122,7 +144,6 @@ namespace Daily
                     notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
                     notifyIcon1.ShowBalloonTip(10000);
                 }
-                
             }
         }
     }
