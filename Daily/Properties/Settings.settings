@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="LogFile" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\user\Dropbox\daily.txt</Value>
+      <Value Profile="(Default)">C:\Users\iwai\Dropbox\daily.txt</Value>
     </Setting>
     <Setting Name="AppPosition" Type="System.Drawing.Point" Scope="Application">
       <Value Profile="(Default)">100, 100</Value>
     </Setting>
     <Setting Name="Tasks" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\user\Dropbox\dailytask.txt</Value>
+      <Value Profile="(Default)">C:\Users\iwai\Dropbox\dailytask.txt</Value>
     </Setting>
   </Settings>
 </SettingsFile>

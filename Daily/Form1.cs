@@ -13,12 +13,15 @@ namespace Daily
 {
     public partial class Form1 : Form
     {
+        TaskList model = new TaskList();
+
         public Form1()
         {
             InitializeComponent();
             ShowInTaskbar = false;
             WindowState = FormWindowState.Minimized;
             ReadTasks();
+            checkedListBoxTasks.DataSource = model.Data;
         }
 
         /// <summary>
@@ -26,20 +29,7 @@ namespace Daily
         /// </summary>
         private void ReadTasks()
         {
-            using (StreamReader sr = new StreamReader(Properties.Settings.Default.Tasks))
-            {
-                string lines = sr.ReadToEnd();
-                string nl = Environment.NewLine;
-                string[] liness = lines.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-                foreach (string line in liness)
-                {
-                    string item = line.Trim();
-                    if (item.Length > 0)
-                    {
-                        checkedListBoxTasks.Items.Add(item);
-                    }
-                }
-            }
+            model.ReadTasks(Properties.Settings.Default.Tasks);
         }
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -59,9 +49,9 @@ namespace Daily
         /// <param name="idx"></param>
         private void CheckItem(int idx)
         {
-            string item = (string)checkedListBoxTasks.Items[idx];
+            Task item = (Task)checkedListBoxTasks.SelectedItem;
 
-            string output = DateTime.Now + "," + item + "," + checkedListBoxTasks.GetItemChecked(idx);
+            string output = DateTime.Now + "," + item.Title + "," + checkedListBoxTasks.GetItemChecked(idx);
             string path = Properties.Settings.Default.LogFile;
 
             if (!File.Exists(path))
