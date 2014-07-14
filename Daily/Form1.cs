@@ -19,7 +19,6 @@ namespace Daily
         {
             InitializeComponent();
             ShowInTaskbar = false;
-            WindowState = FormWindowState.Minimized;
             ReadTasks();
             checkedListBoxTasks.DataSource = model.Data;
         }
@@ -73,7 +72,12 @@ namespace Daily
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            WindowState = FormWindowState.Normal;
+            this.Visible = true;
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            this.Activate();   
         }
 
 
@@ -104,7 +108,9 @@ namespace Daily
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            // ウィンドウの位置・サイズを復元
+            Bounds = Properties.Settings.Default.Bounds;
+            WindowState = Properties.Settings.Default.WindowState;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -126,6 +132,15 @@ namespace Daily
                 notifyIcon1.ShowBalloonTip(10000);
             }
 
+        }
+
+        private void Form1_ClientSizeChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == System.Windows.Forms.FormWindowState.Minimized)
+            {
+                this.Hide();
+                notifyIcon1.Visible = true;
+            }   
         }
     }
 }

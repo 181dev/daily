@@ -2,14 +2,17 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Daily.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LogFile" Type="System.String" Scope="Application">
+    <Setting Name="LogFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\iwai\Dropbox\daily.txt</Value>
     </Setting>
-    <Setting Name="AppPosition" Type="System.Drawing.Point" Scope="Application">
-      <Value Profile="(Default)">100, 100</Value>
-    </Setting>
-    <Setting Name="Tasks" Type="System.String" Scope="Application">
+    <Setting Name="Tasks" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\iwai\Dropbox\dailytask.txt</Value>
+    </Setting>
+    <Setting Name="WindowState" Type="System.Windows.Forms.FormWindowState" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
+    <Setting Name="Bounds" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">100, 100, 302, 350</Value>
     </Setting>
   </Settings>
 </SettingsFile>
