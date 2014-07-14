@@ -32,5 +32,21 @@ namespace Daily
             }
         }
 
+
+        internal List<string> CheckTaskNotification()
+        {
+            List<string> ballon = new List<string>();
+
+            foreach (Task item in Data)
+            {
+                var label = item.Title;
+                var timeStr = item.Time;
+                if (timeStr == DateTime.Now.ToShortTimeString())
+                {
+                    ballon.Add(label);
+                }
+            }
+            return ballon;
+        }
     }
 }

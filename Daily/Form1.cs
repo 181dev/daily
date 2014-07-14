@@ -117,24 +117,15 @@ namespace Daily
         /// </summary>
         private void CheckTaskNotification()
         {
-            foreach (object item in checkedListBoxTasks.Items)
+            List<string> ballon = model.CheckTaskNotification();
+            if (ballon.Count > 0)
             {
-                var label = (string)item;
-                var timeStr = label.Split(' ')[0];
-                List<string> ballon = new List<string>();
-                if (timeStr == DateTime.Now.ToShortTimeString())
-                {
-                    ballon.Add(label);
-                }
-
-                if (ballon.Count > 0)
-                {
-                    notifyIcon1.BalloonTipTitle = "お知らせ";
-                    notifyIcon1.BalloonTipText = string.Join(Environment.NewLine, ballon);
-                    notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-                    notifyIcon1.ShowBalloonTip(10000);
-                }
+                notifyIcon1.BalloonTipTitle = "お知らせ";
+                notifyIcon1.BalloonTipText = string.Join(Environment.NewLine, ballon);
+                notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+                notifyIcon1.ShowBalloonTip(10000);
             }
+
         }
     }
 }
